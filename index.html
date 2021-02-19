@@ -1,59 +1,70 @@
 <body>
     <h1>
-      Rock, Paper, scissors
+        Rock, Paper, scissors
     </h1>
+    <h2 id="intext">click on a button to play! (You or the CPU win at 5 points)</h2>
     <div>
-    <button class="button" id="btnr" value="rock">rock</button>
-    <button class="button" id="btnp" value="paper">paper</button>
-    <button class="button" id="btns" value="scissors">scissors</button>
+        <button class="button" id="btnr" value="rock">rock</button>
+        <button class="button" id="btnp" value="paper">paper</button>
+        <button class="button" id="btns" value="scissors">scissors</button>
     </div>
     <div>
-    <p>Player = 0</p>
-    <p>CPU = 0</p>
+        <p id="inscore">Player = 0 CPU = 0</p>
     </div>
 
-<script>
+    <script>
         function game() {
+            if (playerScore == 5 || cpuScore == 5) {
+                alert("press F5 or reload the page to play again!")
+                return;
+            }
             let playerSelection = this.value;
             const computerSelection = computerPlay();
             console.log(playRound(playerSelection, computerSelection));
             console.log("The final results are: PLAYER =" + playerScore + " CPU =" + cpuScore);
+            const inscore = document.querySelector('#inscore');
+            inscore.textContent ="Player = " + playerScore + " CPU = " + cpuScore;
         }
-        function computerPlay(){
+        function computerPlay() {
             let splay;
             let play = Math.floor(Math.random() * 3);
-            if (play === 0) 
+            if (play === 0)
                 splay = "rock";
             else if (play === 1)
                 splay = "paper";
             else
                 splay = "scissors";
-            
+
             return splay;
         }
         function playRound(playerSelection, computerSelection) {
-            if ((playerSelection == "rock" & computerSelection == "scissors") || (playerSelection == "scissors" & computerSelection == "paper") 
-            || (playerSelection == "paper" & computerSelection == "rock")) {
-                console.log("your selection was " + playerSelection + " and i chose " + computerSelection +", you won!")
+            const intext = document.querySelector('#intext');
+            if ((playerSelection == "rock" & computerSelection == "scissors") || (playerSelection == "scissors" & computerSelection == "paper")
+                || (playerSelection == "paper" & computerSelection == "rock")) {
+                console.log("your selection was " + playerSelection + " and i chose " + computerSelection + ", you won!");
+                intext.textContent = "your selection was " + playerSelection + " and i chose " + computerSelection + ", you won!";
                 playerScore++;
             }
-            else if ((playerSelection == "rock" & computerSelection == "paper") || (playerSelection == "scissors" & computerSelection == "rock") 
-            || (playerSelection == "paper" & computerSelection == "scissors")) {
-                console.log("your selection was " + playerSelection + " and i chose " + computerSelection +", you lost!")
+            else if ((playerSelection == "rock" & computerSelection == "paper") || (playerSelection == "scissors" & computerSelection == "rock")
+                || (playerSelection == "paper" & computerSelection == "scissors")) {
+                console.log("your selection was " + playerSelection + " and i chose " + computerSelection + ", you lost!");
+                intext.textContent = "your selection was " + playerSelection + " and i chose " + computerSelection + ", you lost!";
                 cpuScore++;
             }
-            else
-            console.log("your selection was " + playerSelection + " and i chose " + computerSelection +", it's a tie!")
+            else {
+                console.log("your selection was " + playerSelection + " and i chose " + computerSelection + ", it's a tie!");
+                intext.textContent = "your selection was " + playerSelection + " and i chose " + computerSelection + ", it's a tie!";
+            }
         }
         
         let playerScore = 0;
         let cpuScore = 0;
         const btn = document.querySelectorAll(".button");
         btn.forEach((button) => button.addEventListener("click", game));
-    
-        
-        
-        
-        
-</script>
+
+
+
+
+
+    </script>
 </body>
